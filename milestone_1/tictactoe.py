@@ -40,7 +40,18 @@ def getNextPlayer(player):
     return player
 
 def placeMarker():
-    return int(input('Choose your next position: (1-9)'))
+    position = input('Choose your position: (1-9)')
+    try:
+        position = int(position)
+    except ValueError:
+        print('Please enter an integer from 1 to 9.')
+        return placeMarker()
+
+    if isUserInputValid(position, list(range(1, 10))):
+        return position
+    else:
+        print('Please only input integer from 1 to 9.')
+        return placeMarker()
 
 def shouldGameContinue(player, playerMoves):
     '''
@@ -69,14 +80,16 @@ def shouldGameContinue(player, playerMoves):
 def isPlayerReady():
     # Start the game
     ready = input('Are you ready to play(y/n)?')
-    if isUserInputValid(ready, 'y', 'n'):
+    if isUserInputValid(ready, ('y', 'n')):
         return True if ready == 'y' else False
     else:
         print('Please only input "y" or "n"')
-        isPlayerReady()
+        return isPlayerReady()
 
 def isUserInputValid(*args):
-    if args[0] == args[1] or args[0] == args[2]:
+    userInput = args[0]
+    validRange = args[1]
+    if userInput in validRange:
         return True
     else:
         return False 
@@ -87,12 +100,12 @@ def playerInput():
     The return value is a tuple: (player one marker, player two marker)
     '''
     playerOneMarker = input('Play 1: Do you want to be X or O?')
-    if isUserInputValid(playerOneMarker, 'X', 'O'):
+    if isUserInputValid(playerOneMarker, ('X', 'O')):
         markers = ('X','O') if playerOneMarker == 'X' else ('O','X')
         return markers
     else:
         print('Please only input "X" or "O"')
-        playerInput()
+        return playerInput()
 
 def foundSameDistance(distances, acceptableDistance):
     '''
