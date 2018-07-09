@@ -2,6 +2,7 @@
 found 2 bugs:
 [2,3,4] is not a winning moves but, it has distance 1
 [3,5,7] is a winning moves, but it has distance 2
+[1,3,5,7] is a winning moves, but our logic consider this winning is wrong
 '''
 import random
 
