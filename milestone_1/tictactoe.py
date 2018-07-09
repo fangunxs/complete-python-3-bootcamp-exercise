@@ -20,16 +20,18 @@ def main():
         while shouldGameContinue(player, playerMoves):
             player = getNextPlayer(player)
             #playerMoves[player] = placeMarker(playerMarkers[player], playerMoves[player])
-            nextMove = placeMarker()
-            if isMoveValid(nextMove):
-                playerMoves[player].append(nextMove)
-                board[nextMove] = playerMarkers[player]
-                drawGameBoard(board)
+            nextMove = placeMarker(board)
+            playerMoves[player].append(nextMove)
+            board[nextMove] = playerMarkers[player]
+            drawGameBoard(board)
         else:
             main()
 
-def isMoveValid(move):
-    return True
+def isMoveValid(move, board):
+    if board[move] == ' ':
+        return True
+    else:
+        return False
 
 def getNextPlayer(player):
     playerOptions = (1,2)
@@ -44,19 +46,23 @@ def getNextPlayer(player):
         print('Next is Player{}'.format(playerOptions[player]))
     return player
 
-def placeMarker():
+def placeMarker(board):
     position = input('Choose your position: (1-9)')
     try:
         position = int(position)
     except ValueError:
         print('Please enter an integer from 1 to 9.')
-        return placeMarker()
+        return placeMarker(board)
 
     if isUserInputValid(position, list(range(1, 10))):
-        return position
+        if isMoveValid(position, board):
+            return position
+        else:
+            print('This position has been taken.')
+            return placeMarker(board)
     else:
         print('Please only input integer from 1 to 9.')
-        return placeMarker()
+        return placeMarker(board)
 
 def shouldGameContinue(player, playerMoves):
     '''
