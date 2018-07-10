@@ -80,8 +80,19 @@ def shouldGameContinue_update(player, markers, board):
         board[3] == board[5] == board[7] == markers[player]):
             print('player{} won the game!!!'.format(player + 1))
             return False
+        elif isBoardFull(board):
+            #this is a tied game when the board is full and there is no winner
+            print('The game is tied!')
+            return False
         else:
             return True
+
+def isBoardFull(board):
+    if ' ' not in board[1:10]:
+        #when there is no blank string in board array, the board is full
+        return True
+    else:
+        return False
 
 def shouldGameContinue(player, playerMoves):
     '''
