@@ -18,7 +18,7 @@ def main():
         playerMoves = [[], []]
         player = None
         # game logic
-        while shouldGameContinue(player, playerMoves):
+        while shouldGameContinue_update(player, playerMarkers, board):
             player = getNextPlayer(player)
             #playerMoves[player] = placeMarker(playerMarkers[player], playerMoves[player])
             nextMove = placeMarker(board)
@@ -64,6 +64,24 @@ def placeMarker(board):
     else:
         print('Please only input integer from 1 to 9.')
         return placeMarker(board)
+
+def shouldGameContinue_update(player, markers, board):
+    if player == None:
+        return True
+    else:
+        #check winning conditions
+        if (board[1] == board[2] == board[3] == markers[player] or
+        board[4] == board[5] == board[6] == markers[player] or
+        board[7] == board[8] == board[9] == markers[player] or
+        board[1] == board[4] == board[7] == markers[player] or
+        board[2] == board[5] == board[8] == markers[player] or
+        board[3] == board[6] == board[9] == markers[player] or
+        board[1] == board[5] == board[9] == markers[player] or
+        board[3] == board[5] == board[7] == markers[player]):
+            print('player{} won the game!!!'.format(player + 1))
+            return False
+        else:
+            return True
 
 def shouldGameContinue(player, playerMoves):
     '''
