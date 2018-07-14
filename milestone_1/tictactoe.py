@@ -1,9 +1,3 @@
-'''
-found 2 bugs:
-[2,3,4] is not a winning moves but, it has distance 1
-[3,5,7] is a winning moves, but it has distance 2
-[1,3,5,7] is a winning moves, but our logic consider this winning is wrong
-'''
 import random
 
 def main():
@@ -18,7 +12,7 @@ def main():
         playerMoves = [[], []]
         player = None
         # game logic
-        while shouldGameContinue_update(player, playerMarkers, board):
+        while shouldGameContinue(player, playerMarkers, board):
             player = getNextPlayer(player)
             #playerMoves[player] = placeMarker(playerMarkers[player], playerMoves[player])
             nextMove = placeMarker(board)
@@ -62,7 +56,7 @@ def placeMarker(board):
         print('Please only input integer from 1 to 9.')
         return placeMarker(board)
 
-def shouldGameContinue_update(player, markers, board):
+def shouldGameContinue(player, markers, board):
     if player == None:
         return True
     else:
@@ -87,30 +81,6 @@ def shouldGameContinue_update(player, markers, board):
 def isBoardFull(board):
     #when there is no blank string in board array, the board is full
     return ' ' not in board[1:]
-
-def shouldGameContinue(player, playerMoves):
-    '''
-    winning requirements for a player are:
-        a. the distances betweens moves either 1, 3 or 4
-        b. have same distances in the distance array
-    example:
-        a. winning mvoes:
-            [1,2,3], distance array is [1,2,1]
-            [1,4,7], distance array is [3,6,3]
-            [1,5,9], distance array is [4,8,4]
-        b: not winning moves:
-            [1,3,5], distance array is [2,4,2]
-    '''
-    acceptableDistance = [1,3,4]
-    if player == None:
-        return True
-    else:
-        distances = getMovesDistance(playerMoves[player])
-        if foundSameDistance(distances, acceptableDistance):
-            print('player{} won the game!!!'.format(player + 1))
-            return False
-        else:
-            return True
 
 def isPlayerReady():
     # Start the game
@@ -138,32 +108,6 @@ def playerInput():
     else:
         print('Please only input "X" or "O"')
         return playerInput()
-
-def foundSameDistance(distances, acceptableDistance):
-    '''
-    check if there are multiple acceptable distance in distances array 
-    '''
-    #return len(set(distances)) < len(distances)
-    for distance in acceptableDistance:
-        if distances.count(distance) > 1:
-            return True
-    return False
-
-def getMovesDistance(moves):
-    '''
-    return an array with distance of the moves
-    example: moves are 1,3,5( moves equals to [1,3,5])
-             distances are 2(abs value from 1 to 3), 4(abs value from 1 to 5),
-             2(abs value from 3 to 5)
-             distances equals to [2,4,2]
-    '''
-    distances = []
-    for index, value in enumerate(moves):
-        nextMove = index + 1
-        while nextMove < len(moves):
-            distances.append(abs(value - moves[nextMove]))
-            nextMove += 1
-    return distances
 
 def drawGameBoard(gamePlayed):
     # 0 index position here is a non valid position, just for filling purpose
