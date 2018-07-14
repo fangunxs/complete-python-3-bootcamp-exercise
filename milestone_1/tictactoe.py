@@ -29,10 +29,7 @@ def main():
             main()
 
 def isMoveValid(move, board):
-    if board[move] == ' ':
-        return True
-    else:
-        return False
+    return board[move] == ' '
 
 def getNextPlayer(player):
     playerOptions = (1,2)
@@ -88,11 +85,8 @@ def shouldGameContinue_update(player, markers, board):
             return True
 
 def isBoardFull(board):
-    if ' ' not in board[1:]:
-        #when there is no blank string in board array, the board is full
-        return True
-    else:
-        return False
+    #when there is no blank string in board array, the board is full
+    return ' ' not in board[1:]
 
 def shouldGameContinue(player, playerMoves):
     '''
@@ -122,7 +116,7 @@ def isPlayerReady():
     # Start the game
     ready = input('Are you ready to play(y/n)?')
     if isUserInputValid(ready, ('y', 'n')):
-        return True if ready == 'y' else False
+        return ready == 'y'
     else:
         print('Please only input "y" or "n"')
         return isPlayerReady()
@@ -130,10 +124,7 @@ def isPlayerReady():
 def isUserInputValid(*args):
     userInput = args[0]
     validRange = args[1]
-    if userInput in validRange:
-        return True
-    else:
-        return False 
+    return userInput in validRange
 
 def playerInput():
     '''
