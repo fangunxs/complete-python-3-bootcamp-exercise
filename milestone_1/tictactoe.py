@@ -14,7 +14,6 @@ def main():
         # game logic
         while shouldGameContinue(player, playerMarkers, board):
             player = getNextPlayer(player)
-            #playerMoves[player] = placeMarker(playerMarkers[player], playerMoves[player])
             nextMove = placeMarker(board)
             playerMoves[player].append(nextMove)
             board[nextMove] = playerMarkers[player]
@@ -122,28 +121,3 @@ def drawGameBoard(gamePlayed):
     print(gameBoard)
 
 if __name__ == '__main__':  main()
-
-#def startGame(player1, player2):
-#    position_match = [' '] * 9
-#
-#    playerOneMoves = []
-#    playerTwoMoves = []
-#
-#    while True:
-#        playerOneNextMove = int(nextMove()) - 1
-#        playerOneMoves.append(playerOneNextMove)
-#        position_match[playerOneNextMove] = player1
-#        drawGameBoard(position_match)
-#        if isWon(player1, playerOneMoves):
-#            break
-#
-#        playerTwoNextMove = int(nextMove()) - 1
-#        playerTwoMoves.append(playerTwoNextMove)
-#        position_match[playerTwoNextMove] = player2
-#        drawGameBoard(position_match)
-#        if isWon(player2, playerTwoMoves):
-#            break
-#
-#    isPlayAgain = input('Do you want to play again(y/n)?')
-#    if isPlayAgain == 'y':
-#        main()
