@@ -88,7 +88,7 @@ def shouldGameContinue_update(player, markers, board):
             return True
 
 def isBoardFull(board):
-    if ' ' not in board[1:10]:
+    if ' ' not in board[1:]:
         #when there is no blank string in board array, the board is full
         return True
     else:
